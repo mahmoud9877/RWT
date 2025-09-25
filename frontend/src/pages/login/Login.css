@@ -1,0 +1,32 @@
+.login-page {
+    height: 100vh;
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+    background-color: #fff;
+}
+
+.login-card h2 {
+    color: #333;
+}
+
+.login-card .form-control {
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.login-card .btn-primary {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.login-card .btn-primary:hover {
+    background-color: #0056b3;
+}

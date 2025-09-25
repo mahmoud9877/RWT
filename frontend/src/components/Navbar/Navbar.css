@@ -1,0 +1,35 @@
+.navbar-custom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+    color: #f0f0f0;
+    text-decoration: underline;
+}
