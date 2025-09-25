@@ -18,28 +18,33 @@ export const createReport = asyncHandler(async (req, res) => {
   if (!task) return res.status(404).json({ error: "Task not found." });
 
   let finalText = text || "";
-  let summary = null;
 
   if (file) {
-    const mimeType = file.mimetype;
     const buffer = fs.readFileSync(file.path);
+    const mimeType = file.mimetype;
 
     if (mimeType === "application/pdf") {
       const data = await extractTextFromPDF(buffer);
       finalText = data.text;
-    } else if (mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+    } else if (
+      mimeType ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ) {
       const result = await mammoth.extractRawText({ buffer });
       finalText = result.value;
     } else {
       return res.status(400).json({ error: "Unsupported file type." });
     }
+
+    if (!finalText || finalText.trim().length === 0) {
+      console.warn("Uploaded file has no extractable text.");
+    }
   }
 
-  if (!finalText || finalText.trim().length < 10) {
-    return res.status(400).json({ error: "Report text is too short or empty." });
-  }
-
-  const prompt = `
+  // لو النص النهائي فاضي، ممكن ما نرسلهوش للـ AI
+  let summary = null;
+  if (finalText && finalText.trim().length > 0) {
+    const prompt = `
 Summarize the following employee report clearly and concisely.
 Use the same language as the input.
 Do not add or invent any information.
@@ -48,11 +53,9 @@ Limit the summary to 5 bullet points or 5 short sentences.
 Report:
 ${finalText}
 `;
-
-  const response = await cohere.chat({ message: prompt, temperature: 0.4 });
-  if (!response?.text) return res.status(500).json({ error: "AI summarization failed." });
-
-  summary = response.text.trim();
+    const response = await cohere.chat({ message: prompt, temperature: 0.4 });
+    summary = response?.text?.trim() || "No summary generated.";
+  }
 
   const report = await Report.create({
     employee_id,
@@ -64,7 +67,6 @@ ${finalText}
 
   res.status(201).json({ message: "Report created successfully", report });
 });
-
 
 export const getEmployeeReports = asyncHandler(async (req, res) => {
   const employee_id = req.user.id;
