@@ -1,0 +1,38 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "staff management app using Node.js, Sequelize, and AI integration",
+  "author": "Mahmoud Ali",
+  "type": "module",
+  "main": "./index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cohere-ai": "^7.19.0",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "express-rate-limit": "^8.0.1",
+    "helmet": "^8.1.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "mammoth": "^1.11.0",
+    "morgan": "^1.10.1",
+    "multer": "^1.4.5-lts.1",
+    "nanoid": "^5.1.5",
+    "pdf-parse": "^1.1.1",
+    "pg": "^8.16.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7"
+  }
+}
